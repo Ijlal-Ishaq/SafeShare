@@ -66,8 +66,9 @@ const Index: FC = () => {
             method: 'eth_getEncryptionPublicKey',
             params: [publicAddress],
         }).then((key:any) => {
-            console.log(publicAddress,key)
             encryptionPublicKey = key;
+        }).catch((e:any)=>{
+            alert(e.message);
         })
 
         setPublicKey(encryptionPublicKey);
@@ -81,12 +82,12 @@ const Index: FC = () => {
   return (
     <Container>
         <Heading>your-public-address:</Heading>
-        <InputText onChange={(e)=>{setPublicAddress(e.target.value)}}/>
+        <InputText onChange={(e)=>{setPublicAddress(e.target.value)}} placeholder={"enter public-address..."}/>
         <div style={{width:"100%",display:"flex",justifyContent:"flex-end"}}>
             <Button onClick={()=>{getPublicKey()}}>get-key</Button>
         </div>
         <Heading>your-public-key:</Heading>
-        <InputText onChange={(e)=>{setPublicKey(e.target.value)}} value={publicKey}/>
+        <InputText value={publicKey} placeholder={"public-key..."}/>
         <div style={{width:"100%",display:"flex",justifyContent:"flex-end"}}>
             <Button onClick={()=>{copyToClipboard(publicKey)}}>copy</Button>
         </div>

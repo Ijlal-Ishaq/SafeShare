@@ -68,12 +68,12 @@ const Index: FC = () => {
   return (
     <Container>
      <Heading>cipher-text:</Heading>
-     <InputField onChange={(e)=>{setData(e.target.value)}}/>
+     <InputField onChange={(e)=>{setData(e.target.value)}} placeholder={"enter cipher-text..."}/>
      <div style={{width:"100%",display:"flex",justifyContent:"flex-end"}}>
        <Button onClick={()=>{decryptData()}}>decrypt</Button>
      </div>
      <Heading>plain-text:</Heading>
-     <InputField onChange={(e)=>{setDecryptedData(e.target.value)}} value={decryptedData}/>
+     <InputField value={decryptedData} placeholder={"plain-text..."}/>
      <div style={{width:"100%",display:"flex",justifyContent:"flex-end"}}>
        <Button onClick={()=>{copyToClipboard(decryptedData)}}>copy</Button>
      </div>

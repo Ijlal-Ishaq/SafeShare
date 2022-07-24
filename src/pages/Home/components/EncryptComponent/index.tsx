@@ -73,24 +73,25 @@ const Index: FC = () => {
     const [encryptedData,setEncryptedData] = useState('');
 
     const encryptData = () => {
-        if(publicKey!=='' && data!==''){
-          let ct = encrypt(data,publicKey);
-          console.log(ct)
-          setEncryptedData(ct);
-        }
+      if(publicKey!=='' && data!==''){
+        let ct = encrypt(data,publicKey);
+        setEncryptedData(ct);
+      }else{
+        alert("Enter proper data.")
+      }
     }
 
     return (
     <Container>
         <Heading>receiver-public-key:</Heading>
-        <InputText onChange={(e)=>{setPublicKey(e.target.value)}}/>
+        <InputText onChange={(e)=>{setPublicKey(e.target.value)}} placeholder={"enter receiver's public-key..."}/>
         <Heading>plain-text:</Heading>
-        <InputField onChange={(e)=>{setData(e.target.value)}}/>
+        <InputField onChange={(e)=>{setData(e.target.value)}} placeholder={"enter plain-text..."}/>
         <div style={{width:"100%",display:"flex",justifyContent:"flex-end"}}>
         <Button onClick={()=>{encryptData()}}>encrypt</Button>
         </div>
         <Heading>cipher-text:</Heading>
-        <InputField onChange={(e)=>{setEncryptedData(e.target.value)}} value={encryptedData}/>
+        <InputField value={encryptedData} placeholder={"cipher-text..."}/>
         <div style={{width:"100%",display:"flex",justifyContent:"flex-end"}}>
         <Button onClick={()=>{copyToClipboard(encryptedData)}}>copy</Button>
         </div>
