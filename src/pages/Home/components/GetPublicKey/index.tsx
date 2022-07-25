@@ -1,7 +1,8 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import { copyToClipboard } from "../copy";
 import web3 from "web3";
+import { useWeb3React } from "@web3-react/core";
 
 const Container = styled("div")(({ theme }) => ({
   width: "100%",
@@ -55,6 +56,12 @@ const Index: FC = () => {
 
   const [publicAddress ,setPublicAddress] = useState('');
   const [publicKey ,setPublicKey] = useState('');
+  const { account } = useWeb3React();
+
+  useEffect(()=>{
+    setPublicAddress(account ? account : "");
+    setPublicKey("")
+  },[account])
 
   const getPublicKey = async() => {
 
@@ -82,9 +89,9 @@ const Index: FC = () => {
   return (
     <Container>
         <Heading>your-public-address:</Heading>
-        <InputText onChange={(e)=>{setPublicAddress(e.target.value)}} placeholder={"enter public-address..."}/>
+        <InputText placeholder={"enter public-address..."} value={publicAddress}/>
         <div style={{width:"100%",display:"flex",justifyContent:"flex-end"}}>
-            <Button onClick={()=>{getPublicKey()}}>get-key</Button>
+            <Button onClick={()=>{getPublicKey()}}>get-public-key</Button>
         </div>
         <Heading>your-public-key:</Heading>
         <InputText value={publicKey} placeholder={"public-key..."}/>
