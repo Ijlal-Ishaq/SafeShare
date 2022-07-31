@@ -1,26 +1,28 @@
-import { encrypt } from '@metamask/eth-sig-util';
-const ethUtil = require('ethereumjs-util');
+import { encrypt } from "@metamask/eth-sig-util";
+const ethUtil = require("ethereumjs-util");
+const CryptoJS = require("crypto-js");
 
-export const encryptData = ( data:string, publicKey:string ) : string => {
+export const encryptDataWithSimpleKey = (data: string, key: string): string => {
+  var encrypted = CryptoJS.AES.encrypt(data, key);
+  return encrypted.toString();
+};
 
-  try{
+export const encryptDataWithPublicKey = (
+  data: string,
+  publicKey: string
+): string => {
+  try {
     const enc = encrypt({
       publicKey: publicKey,
       data: data.toString(),
-      version: 'x25519-xsalsa20-poly1305',
+      version: "x25519-xsalsa20-poly1305",
     });
     const encryptedMessage = ethUtil.bufferToHex(
-      Buffer.from(
-        JSON.stringify(
-          enc                 
-        ),
-        'utf8'
-      )
+      Buffer.from(JSON.stringify(enc), "utf8")
     );
     return encryptedMessage;
-  }catch(e){
+  } catch (e) {
     alert(e);
-    return '';
+    return "";
   }
-  
-}
+};
